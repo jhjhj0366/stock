@@ -1,9 +1,13 @@
 package com.example.stock.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import com.example.stock.domain.Stock;
 import com.example.stock.repository.StockRepository;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,10 +36,36 @@ class StockServiceTest {
 
     @Test
     public void stock_decrease() throws Exception {
-        stockService.decreaa(1L, 1L);
+        stockService.decrease(1L, 1L);
 
         Stock stock = stockRepository.findById(1L).orElseThrow();
         // then
         assertEquals(99, stock.getQuantity());
+    }
+
+    @Test
+    public void 동시에_100개_요청() throws Exception {
+        int threadCount = 100;
+        ExecutorService executorService = Executors.newFixedThreadPool(32);
+        CountDownLatch latch = new CountDownLatch(threadCount);
+
+        for (int i = 0; i < threadCount; i++) {
+            executorService.submit(() -> {
+                try {
+                    stockService.decrease(1L, 1L);
+                } finally {
+                    latch.countDown();
+                }
+            });
+        }
+
+        latch.await();
+
+        Stock stock = stockRepository.findById(1L).orElseThrow();
+
+        // 100 - (1 * 100) = 0 ?
+        // Race Condition 발생 (공유 자원에 대해 여러 개의 프로세스가 동시에 접근하기 위해 경쟁하는 상태)
+        assertNotEquals(0L, stock.getQuantity());
+
     }
 }

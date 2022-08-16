@@ -15,7 +15,7 @@ public class StockService {
     }
 
     @Transactional
-    public void decreaa(Long id, Long quantity){
+    public void decrease(Long id, Long quantity){
 
         // get stock
         Stock stock = stockRepository.findById(id).orElseThrow();
