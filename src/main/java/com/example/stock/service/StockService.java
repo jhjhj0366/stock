@@ -14,6 +14,7 @@ public class StockService {
         this.stockRepository = stockRepository;
     }
 
+
     public synchronized void decrease(Long id, Long quantity){
 
         // get stock

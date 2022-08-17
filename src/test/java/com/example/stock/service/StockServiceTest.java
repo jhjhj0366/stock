@@ -1,7 +1,6 @@
 package com.example.stock.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import com.example.stock.domain.Stock;
 import com.example.stock.repository.StockRepository;
@@ -18,7 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class StockServiceTest {
 
     @Autowired
-    private StockService stockService;
+    private PessimisticLockStockService stockService;
 
     @Autowired
     private StockRepository stockRepository;
