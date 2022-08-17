@@ -65,7 +65,7 @@ class StockServiceTest {
 
         // 100 - (1 * 100) = 0 ?
         // Race Condition 발생 (공유 자원에 대해 여러 개의 프로세스가 동시에 접근하기 위해 경쟁하는 상태)
-        assertNotEquals(0L, stock.getQuantity());
+        assertEquals(0L, stock.getQuantity());
 
     }
 }
