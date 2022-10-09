@@ -17,7 +17,7 @@ public class StockService {
 
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void decrease(Long id, Long quantity){
+    public synchronized void decrease(Long id, Long quantity){
 
         // get stock
         Stock stock = stockRepository.findById(id).orElseThrow();

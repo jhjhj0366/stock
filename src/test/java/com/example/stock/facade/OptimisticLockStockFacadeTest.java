@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.example.stock.domain.Stock;
 import com.example.stock.repository.StockRepository;
-import com.example.stock.service.PessimisticLockStockService;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -56,9 +55,7 @@ class OptimisticLockStockFacadeTest {
 
         Stock stock = stockRepository.findById(1L).orElseThrow();
 
-        // 100 - (1 * 100) = 0 ?
-        // Race Condition 발생 (공유 자원에 대해 여러 개의 프로세스가 동시에 접근하기 위해 경쟁하는 상태)
-        assertEquals(0L, stock.getQuantity());
-
+        // 100 - (100 * 1) = 0
+        assertEquals(0, stock.getQuantity());
     }
 }

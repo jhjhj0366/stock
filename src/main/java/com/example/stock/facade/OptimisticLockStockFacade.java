@@ -8,8 +8,7 @@ public class OptimisticLockStockFacade {
 
     private final OptimisticLockStockService optimisticLockStockService;
 
-    public OptimisticLockStockFacade(
-            OptimisticLockStockService optimisticLockStockService) {
+    public OptimisticLockStockFacade(OptimisticLockStockService optimisticLockStockService) {
         this.optimisticLockStockService = optimisticLockStockService;
     }
 

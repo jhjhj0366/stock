@@ -9,8 +9,7 @@ public class RedisLockRepository {
 
     private final RedisTemplate<String, String> redisTemplate;
 
-    public RedisLockRepository(
-            RedisTemplate<String, String> redisTemplate) {
+    public RedisLockRepository(RedisTemplate<String, String> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 
